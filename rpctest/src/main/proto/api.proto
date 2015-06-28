@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_package = "org.borud.rpctest.pb";
+option optimize_for = SPEED;
+
+message Data {
+    int64 timestamp = 1;
+    string payload = 2;
+}
+
+message EnqueueDataRequest {
+    Data data = 1;
+}
+
+message EnqueueDataResponse {
+    enum Code {
+        OK   = 0;
+        FAIL = 1;
+    }
+    Code code = 1;
+}
+
+service Api {
+    rpc enqueue(EnqueueDataRequest) returns (EnqueueDataResponse) {}
+}
